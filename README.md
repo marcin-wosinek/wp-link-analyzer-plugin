@@ -4,10 +4,10 @@ Repository template for our packages
 When creating a new repository for a package or a plugin, select this repository as the template. It will initialize the new repository with all the structure & files contained in the template.
 
 # Get started
-- Have a mysql DB ready and a user.
+- Have a mysql DB ready and a user — for example, `docker compose up`
 - Have `svn` installed.
 - Run `composer install`
-- Run `bash bin/install-wp-tests.sh wordpress_test mysql_user mysql_password localhost latest`
+- Run `bash bin/install-wp-tests.sh link-analyzer-plugin exampleuser examplepass localhost latest`
 - Run `composer run-tests`
 - Run `composer phpcs`
 - You can install the plugin on your website.
