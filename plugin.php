@@ -8,10 +8,10 @@
  * @license     GPL-2.0-or-later
  *
  * @wordpress-plugin
- * Plugin Name: TO FILL
- * Version:     TO FILL
- * Description: TO FILL
- * Author:      Mathieu Lamiot
+ * Plugin Name: Link Analyzer
+ * Version:     1.0
+ * Description:
+ * Author:      Marcin Wosinek
  */
 
 namespace ROCKET_WP_CRAWLER;
