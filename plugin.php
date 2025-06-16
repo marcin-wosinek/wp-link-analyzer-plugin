@@ -8,10 +8,18 @@
  * @license     GPL-2.0-or-later
  *
  * @wordpress-plugin
- * Plugin Name: Link Analyzer
- * Version:     1.0
- * Description:
- * Author:      Marcin Wosinek
+ * Plugin Name:       Link Analyzer
+ * Version:           1.0
+ * Description:       Analyze the links at the homepage.
+ * Author:            Marcin Wosinek
+ * Plugin URI:        https://github.com/marcin-wosinek/wp-link-analyzer-plugin
+ * Requires at least: 6.8
+ * Requires PHP:      8.1
+ * Author URI:        https://how-to.dev/
+ * License:           GPL v2 or later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ * Update URI:        https://example.com/my-plugin/
+ * Text Domain:       link-analyzer
  */
 
 namespace ROCKET_WP_CRAWLER;
