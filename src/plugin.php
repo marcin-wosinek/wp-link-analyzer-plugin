@@ -2,9 +2,9 @@
 /**
  * Plugin main class
  *
- * @package     TO FILL
- * @since       TO FILL
- * @author      Mathieu Lamiot
+ * @package     Link Analyzer
+ * @since       1.0
+ * @author      Marcin Wosinek
  * @license     GPL-2.0-or-later
  */
 

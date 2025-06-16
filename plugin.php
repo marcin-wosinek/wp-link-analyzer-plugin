@@ -48,3 +48,18 @@ add_action( 'plugins_loaded', __NAMESPACE__ . '\wpc_crawler_plugin_init' );
 
 register_activation_hook( __FILE__, __NAMESPACE__ . '\Rocket_Wpc_Plugin_Class::wpc_activate' );
 register_uninstall_hook( __FILE__, __NAMESPACE__ . '\Rocket_Wpc_Plugin_Class::wpc_uninstall' );
+
+// TODO find more fitting place for the hook
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\script_enqueue' );
+
+function script_enqueue() {
+	wp_enqueue_script(
+		'ajax-script',
+		plugins_url( '/src/script.js', __FILE__ ),
+		array( 'jquery' ),
+		'1.0.0',
+		array(
+		   'in_footer' => true,
+		)
+	);
+}
