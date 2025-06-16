@@ -7,7 +7,7 @@ When creating a new repository for a package or a plugin, select this repository
 - Have a mysql DB ready and a user — for example, `docker compose up`
 - Have `svn` installed.
 - Run `composer install`
-- Run `bash bin/install-wp-tests.sh link-analyzer-plugin exampleuser examplepass localhost latest`
+- Run `bash bin/install-wp-tests.sh exampledb exampleuser examplepass localhost latest true`
 - Run `composer run-tests`
 - Run `composer phpcs`
 - You can install the plugin on your website.
