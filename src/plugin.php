@@ -10,6 +10,8 @@
 
 namespace ROCKET_WP_CRAWLER;
 
+include 'admin/view.php';
+
 /**
  * Main plugin class. It manages initialization, install, and activations.
  */
@@ -71,6 +73,7 @@ class Rocket_Wpc_Plugin_Class {
 	 *
 	 * @return void
 	 */
+	// TODO remove jQuery
 	public static function wpc_script_enqueue() {
 		if (is_home()) {
 			wp_enqueue_script(
@@ -83,5 +86,14 @@ class Rocket_Wpc_Plugin_Class {
 				)
 			);
 		}
+	}
+
+	/**
+	 * Add script
+	 *
+	 * @return void
+	 */
+	public static function wpc_admin_menu() {
+		add_menu_page( 'Link analyzer plugin', 'Link analyzer', 'manage_options', 'link-analyzer-plugin', __NAMESPACE__ . '\admin_page_view' );
 	}
 }
