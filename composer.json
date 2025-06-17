@@ -1,44 +1,48 @@
 {
-    "name"          : "wp-media/package-template",
-    "description"   : "WP Plugin template for WP Media.",
-    "type"          : "project",
-    "keywords"      : ["wordpress", "wp", "plugin"],
-    "homepage"      : "https://github.com/wp-media/package-template",
-    "license"       : "GPL-2.0+",
-    "authors"       : [
-        {
-            "name": "Mathieu Lamiot",
-            "email": "mathieu@wp-media.me"
-        }
-    ],
-    "require"       : {
-        "php" : ">=7.3"
-    },
-    "require-dev":{
-        "php": "^7.3 || ^8",
-        "brain/monkey": "^2.0",
-        "dealerdirect/phpcodesniffer-composer-installer": "^1",
-        "filp/whoops": "~2.0",
-        "friendsofphp/php-cs-fixer": "^3.9",
-        "phpcompatibility/phpcompatibility-wp": "^2.0",
-        "phpunit/phpunit": "^5.7 || ^7 || ^8",
-        "raveren/kint": "~1.0",
-        "wp-coding-standards/wpcs": "dev-develop",
-        "wp-media/phpunit": "^3"
-    },
-    "autoload": {},
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0-dev"
-        }
-    },
-    "config":{
+	"name": "wp-media/package-template",
+	"description": "WP Plugin template for WP Media.",
+	"type": "project",
+	"keywords": [
+		"wordpress",
+		"wp",
+		"plugin"
+	],
+	"homepage": "https://github.com/wp-media/package-template",
+	"license": "GPL-2.0+",
+	"authors": [
+		{
+			"name": "Mathieu Lamiot",
+			"email": "mathieu@wp-media.me"
+		}
+	],
+	"require": {
+		"php": ">=7.3"
+	},
+	"require-dev": {
+		"php": "^7.3 || ^8",
+		"brain/monkey": "^2.0",
+		"dealerdirect/phpcodesniffer-composer-installer": "^1",
+		"filp/whoops": "~2.0",
+		"friendsofphp/php-cs-fixer": "^3.9",
+		"phpcompatibility/phpcompatibility-wp": "^2.0",
+		"phpunit/phpunit": "^5.7 || ^7 || ^8",
+		"raveren/kint": "~1.0",
+		"wp-coding-standards/wpcs": "dev-develop",
+		"wp-media/phpunit": "^3"
+	},
+	"autoload": {},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "1.0-dev"
+		}
+	},
+	"config": {
 		"sort-packages": true,
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
-        }
-    },
-    "minimum-stability": "dev",
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	},
+	"minimum-stability": "dev",
 	"scripts": {
 		"test-unit": "vendor/bin/phpunit --testsuite unit --colors=always --configuration \"Tests/Unit/phpunit.xml.dist\"",
 		"test-integration": "vendor/bin/phpunit --testsuite integration --colors=always --configuration \"Tests/Integration/phpunit.xml.dist\"",
@@ -49,6 +53,7 @@
 		"install-codestandards": "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin::run",
 		"phpcs": "phpcs --basepath=.",
 		"phpcs-changed": "./bin/phpcs-changed.sh",
-		"phpcs:fix": "phpcbf"
+		"phpcs:fix": "phpcbf",
+		"style": "php-cs-fixer fix ."
 	}
 }

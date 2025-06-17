@@ -18,13 +18,14 @@ use Brain\Monkey\Functions;
 /**
  * Integration test set for the Webplan Updater Cron Class.
  */
-class Rocket_Wpc_Plugin_Integration_Test extends TestCase {
-
-	/**
+class Rocket_Wpc_Plugin_Integration_Test extends TestCase
+{
+    /**
      * Checks the call to plugin init function on plugin_loaded.
      */
-    public function testShouldLoadPlugin() {
-		  Functions\expect(__NAMESPACE__ . '\wpc_crawler_plugin_init')->once();
-		  do_action('plugins_loaded');
+    public function testShouldLoadPlugin()
+    {
+        Functions\expect(__NAMESPACE__ . '\wpc_crawler_plugin_init')->once();
+        do_action('plugins_loaded');
     }
 }

@@ -12,18 +12,16 @@ namespace LINK_ANALYZER;
 
 use WPMedia\PHPUnit\Unit\TestCase;
 
-
 /**
  * Unit test set for the Webplan data class.
  */
-class Rocket_Wpc_Demo_Test extends TestCase {
-
+class Rocket_Wpc_Demo_Test extends TestCase
+{
     /**
      * Always pass.
      */
-    public function testAlwaysPass() {
-
-		$this->assertTrue(true);
-
+    public function testAlwaysPass()
+    {
+        $this->assertTrue(true);
     }
 }
