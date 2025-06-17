@@ -24,5 +24,9 @@ window.addEventListener("load", function (event) {
 
 	const data = { screenWidth, screenHeight, linkData };
 
-	console.log(data);
+	// optimistic data send
+	fetch(link_analyzer_obj.addDataUrl, {
+		method: "POST",
+		body: JSON.stringify(data),
+	});
 });
