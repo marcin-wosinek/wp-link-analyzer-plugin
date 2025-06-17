@@ -1,24 +1,28 @@
 // TODO decide on the trade-off: as we wait for images to load, the user may be
-// scrolling down.
+// already scrolling down, therefore affecting what links are above the fold.
 window.addEventListener("load", function (event) {
-	console.log("Link Analyzer Plugin: Hello World!");
-
 	const screenWidth = window.innerWidth,
 		screenHeight = window.innerHeight;
 
-	console.log(`${screenWidth}, ${screenHeight}`);
-
 	// all links that are not WP admin bar
-	const links = document.querySelectorAll(
+	const allLinks = document.querySelectorAll(
 		"body > div:not(#wpadminbar) a[href]",
 	);
 
-	// consider using lodash
-	const aboveFoldLinks = Array.from(links).filter((element) => {
+	const aboveFoldLinks = Array.from(allLinks).filter((element) => {
 		const { y } = element.getBoundingClientRect();
 
 		return y < screenHeight;
 	});
 
-	console.log(aboveFoldLinks);
+	const linkData = aboveFoldLinks.map((element) => {
+		return {
+			text: element.innerText,
+			href: element.href,
+		};
+	});
+
+	const data = { screenWidth, screenHeight, linkData };
+
+	console.log(data);
 });
