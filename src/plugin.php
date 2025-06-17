@@ -77,13 +77,10 @@ class Rocket_Wpc_Plugin_Class {
 	public static function wpc_script_enqueue() {
 		if (is_home()) {
 			wp_enqueue_script(
-				'ajax-script',
+				'link-analyzer',
 				plugins_url( '/script.js', __FILE__ ),
-				array( 'jquery' ),
+				array(),
 				'1.0.0',
-				array(
-					 'in_footer' => true,
-				)
 			);
 		}
 	}
