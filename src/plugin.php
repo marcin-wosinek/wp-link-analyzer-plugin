@@ -10,8 +10,8 @@
 
 namespace LINK_ANALYZER;
 
-include 'admin/view.php';
-include 'api/add-data.php';
+require 'admin/view.php';
+require 'api/add-data.php';
 
 /**
  * Main plugin class. It manages initialization, install, and activations.
@@ -25,7 +25,7 @@ class Rocket_Wpc_Plugin_Class {
 	public function __construct() {
 
 		// Register plugin lifecycle hooks.
-		register_deactivation_hook( ROCKET_CRWL_PLUGIN_FILENAME, array( $this, 'wpc_deactivate' ) );
+		register_deactivation_hook( LINK_ANALYZER_PLUGIN, array( $this, 'wpc_deactivate' ) );
 	}
 
 	/**
@@ -75,12 +75,13 @@ class Rocket_Wpc_Plugin_Class {
 	 * @return void
 	 */
 	public static function wpc_script_enqueue() {
-		if (is_home()) {
+		if ( is_home() ) {
 			wp_enqueue_script(
 				'link-analyzer',
 				plugins_url( '/script.js', __FILE__ ),
 				array(),
 				'1.0.0',
+				array( 'in_footer' => true )
 			);
 		}
 	}
