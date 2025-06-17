@@ -2,13 +2,13 @@
 /**
  *  Implements the Integration test set for the plugin management.
  *
- * @package     TO FILL
- * @since       TO FILL
- * @author      Mathieu Lamiot
+ * @package     Link Analyzer
+ * @since       1.0
+ * @author      Marcin Wosinek
  * @license     GPL-2.0-or-later
  */
 
-namespace ROCKET_WP_CRAWLER;
+namespace LINK_ANALYZER;
 
 require_once dirname(dirname(__DIR__)) . "/plugin.php";
 

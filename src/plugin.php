@@ -8,7 +8,7 @@
  * @license     GPL-2.0-or-later
  */
 
-namespace ROCKET_WP_CRAWLER;
+namespace LINK_ANALYZER;
 
 include 'admin/view.php';
 

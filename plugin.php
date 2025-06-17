@@ -22,7 +22,7 @@
  * Text Domain:       link-analyzer
  */
 
-namespace ROCKET_WP_CRAWLER;
+namespace LINK_ANALYZER;
 
 define( 'ROCKET_CRWL_PLUGIN_FILENAME', __FILE__ ); // Filename of the plugin, including the file.
 

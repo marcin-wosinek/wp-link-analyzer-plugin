@@ -1,6 +1,6 @@
 <?php
 
-namespace ROCKET_WP_CRAWLER;
+namespace LINK_ANALYZER;
 
 function admin_page_view() {
 ?>
