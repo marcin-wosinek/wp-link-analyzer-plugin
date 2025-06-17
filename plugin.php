@@ -51,3 +51,4 @@ register_uninstall_hook( __FILE__, __NAMESPACE__ . '\Rocket_Wpc_Plugin_Class::wp
 
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\Rocket_Wpc_Plugin_Class::wpc_script_enqueue' );
 add_action( 'admin_menu', __NAMESPACE__ . '\Rocket_Wpc_Plugin_Class::wpc_admin_menu' );
+add_action( 'rest_api_init', __NAMESPACE__ . '\Rocket_Wpc_Plugin_Class::wpc_rest_api_init' );

@@ -11,6 +11,7 @@
 namespace LINK_ANALYZER;
 
 include 'admin/view.php';
+include 'api/add-data.php';
 
 /**
  * Main plugin class. It manages initialization, install, and activations.
@@ -73,7 +74,6 @@ class Rocket_Wpc_Plugin_Class {
 	 *
 	 * @return void
 	 */
-	// TODO remove jQuery
 	public static function wpc_script_enqueue() {
 		if (is_home()) {
 			wp_enqueue_script(
@@ -86,11 +86,21 @@ class Rocket_Wpc_Plugin_Class {
 	}
 
 	/**
-	 * Add script
+	 * Add admin menu
 	 *
 	 * @return void
 	 */
 	public static function wpc_admin_menu() {
 		add_menu_page( 'Link analyzer plugin', 'Link analyzer', 'manage_options', 'link-analyzer-plugin', __NAMESPACE__ . '\admin_page_view' );
+	}
+
+	/**
+	 * Register API endpoint
+	 *
+	 * @return void
+	 */
+	public static function wpc_rest_api_init() {
+		$controller = new Add_Data_Controller();
+		$controller->register_routes();
 	}
 }
