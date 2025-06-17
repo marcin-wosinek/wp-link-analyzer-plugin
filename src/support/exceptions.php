@@ -15,7 +15,7 @@ use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 
 // Register WHOOPS - See WHOOPS's github + KTC tutorial.
-add_action('init', __NAMESPACE__ . '\load_whoops');
+add_action( 'init', __NAMESPACE__ . '\load_whoops' );
 /**
  * Initialize WHOOPS and registers the handler with a custom editor style
  *
@@ -23,11 +23,10 @@ add_action('init', __NAMESPACE__ . '\load_whoops');
  *
  * @return void
  */
-function load_whoops()
-{
-    $whoops     = new Run();
-    $error_page = new PrettyPageHandler();
-    $error_page->setEditor('sublime'); // Set a specific style to the code display.
-    $whoops->pushHandler($error_page);
-    $whoops->register();
+function load_whoops() {
+	$whoops     = new Run();
+	$error_page = new PrettyPageHandler();
+	$error_page->setEditor( 'sublime' ); // Set a specific style to the code display.
+	$whoops->pushHandler( $error_page );
+	$whoops->register();
 }
