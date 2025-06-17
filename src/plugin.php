@@ -85,6 +85,14 @@ class Rocket_Wpc_Plugin_Class {
 				array( 'in_footer' => true )
 			);
 		}
+
+			wp_localize_script(
+				'link-analyzer',
+				'link_analyzer_obj',
+				array(
+					'addDataUrl' => get_rest_url( null, '/link-analyzer/v1/add-data' ),
+				)
+			);
 	}
 
 	/**
