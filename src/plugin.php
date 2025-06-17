@@ -65,4 +65,23 @@ class Rocket_Wpc_Plugin_Class {
 			return;
 		}
 	}
+
+	/**
+	 * Add script
+	 *
+	 * @return void
+	 */
+	public static function wpc_script_enqueue() {
+		if (is_home()) {
+			wp_enqueue_script(
+				'ajax-script',
+				plugins_url( '/script.js', __FILE__ ),
+				array( 'jquery' ),
+				'1.0.0',
+				array(
+					 'in_footer' => true,
+				)
+			);
+		}
+	}
 }
