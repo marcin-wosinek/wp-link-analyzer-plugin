@@ -56,7 +56,14 @@ class Add_Data_Controller {
 		);
 	}
 
-	// Validation callback functions
+	/**
+	 * Validates that the screen width is a positive integer.
+	 *
+	 * @param mixed           $value The screen width value to validate.
+	 * @param WP_REST_Request $request Current request.
+	 * @param string          $param The parameter name.
+	 * @return bool|WP_Error True if valid, WP_Error if not.
+	 */
 	public function validate_screen_width( $value, $request, $param ) {
 		if ( ! is_int( $value ) || $value <= 0 ) {
 			return new WP_Error(
@@ -68,6 +75,14 @@ class Add_Data_Controller {
 		return true;
 	}
 
+	/**
+	 * Validates that the screen height is a positive integer.
+	 *
+	 * @param mixed           $value The screen height value to validate.
+	 * @param WP_REST_Request $request Current request.
+	 * @param string          $param The parameter name.
+	 * @return bool|WP_Error True if valid, WP_Error if not.
+	 */
 	public function validate_screen_height( $value, $request, $param ) {
 		if ( ! is_int( $value ) || $value <= 0 ) {
 			return new WP_Error(
@@ -79,8 +94,16 @@ class Add_Data_Controller {
 		return true;
 	}
 
+	/**
+	 * Validates the link data structure and content.
+	 *
+	 * @param mixed           $value The link data to validate.
+	 * @param WP_REST_Request $request Current request.
+	 * @param string          $param The parameter name.
+	 * @return bool|WP_Error True if valid, WP_Error if not.
+	 */
 	public function validate_link_data( $value, $request, $param ) {
-		// Check if it's an array
+		// Check if it's an array.
 		if ( ! is_array( $value ) ) {
 			return new WP_Error(
 				'invalid_link_data_type',
@@ -89,7 +112,7 @@ class Add_Data_Controller {
 			);
 		}
 
-		// Check if array is empty
+		// Check if array is empty.
 		if ( empty( $value ) ) {
 			return new WP_Error(
 				'empty_link_data',
@@ -98,9 +121,9 @@ class Add_Data_Controller {
 			);
 		}
 
-		// Validate each item in the array
+		// Validate each item in the array.
 		foreach ( $value as $index => $link ) {
-			// Check if each item is an object (associative array in PHP)
+			// Check if each item is an object (associative array in PHP).
 			if ( ! is_array( $link ) || array_keys( $link ) === range( 0, count( $link ) - 1 ) ) {
 				return new WP_Error(
 					'invalid_link_item_type',
@@ -109,7 +132,7 @@ class Add_Data_Controller {
 				);
 			}
 
-			// Check required properties
+			// Check required properties.
 			if ( ! isset( $link['text'] ) ) {
 				return new WP_Error(
 					'missing_link_text',
@@ -126,7 +149,7 @@ class Add_Data_Controller {
 				);
 			}
 
-			// Validate property types
+			// Validate property types.
 			if ( ! is_string( $link['text'] ) ) {
 				return new WP_Error(
 					'invalid_link_text_type',
@@ -143,7 +166,7 @@ class Add_Data_Controller {
 				);
 			}
 
-			// Optional: Validate href format (URL)
+			// Optional: Validate href format (URL).
 			if ( ! filter_var( $link['href'], FILTER_VALIDATE_URL ) ) {
 				return new WP_Error(
 					'invalid_link_href_format',
@@ -152,7 +175,7 @@ class Add_Data_Controller {
 				);
 			}
 
-			// Optional: Check for empty strings
+			// Optional: Check for empty strings.
 			if ( empty( trim( $link['text'] ) ) ) {
 				return new WP_Error(
 					'empty_link_text',
@@ -165,7 +188,13 @@ class Add_Data_Controller {
 		return true;
 	}
 
-	public function sanitize_link_data( $value ) {
+	/**
+	 * Sanitize data provided by the API user
+	 *
+	 * @param array $value The link data to sanitize.
+	 * @return array Sanitized link data
+	 */
+	private function sanitize_link_data( $value ) {
 		if ( ! is_array( $value ) ) {
 			return array();
 		}

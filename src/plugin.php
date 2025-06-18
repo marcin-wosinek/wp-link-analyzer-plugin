@@ -18,7 +18,7 @@ require 'api/add-data.php';
  */
 class Link_Analyzer_Plugin_Class {
 
-	public const DB_VERSION = '1.0';
+	const DB_VERSION = '1.0';
 
 	/**
 	 * Manages plugin initialization
@@ -57,7 +57,7 @@ class Link_Analyzer_Plugin_Class {
 		$tables          = self::get_table_names();
 		$charset_collate = $wpdb->get_charset_collate();
 
-		// Sessions table
+		// Sessions table.
 		$sql_sessions = "CREATE TABLE {$tables['sessions']} (
 			id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 			screen_width int(11) NOT NULL,
@@ -68,7 +68,7 @@ class Link_Analyzer_Plugin_Class {
 			KEY idx_screen_dimensions (screen_width, screen_height)
 		) $charset_collate;";
 
-		// Links table
+		// Links table.
 		$sql_links = "CREATE TABLE {$tables['links']} (
 			id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 			link_text varchar(500) NOT NULL,
@@ -80,7 +80,7 @@ class Link_Analyzer_Plugin_Class {
 			KEY idx_text (link_text(100))
 		) $charset_collate;";
 
-		// Session links junction table
+		// Session links junction table.
 		$sql_session_links = "CREATE TABLE {$tables['session_links']} (
 			id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 			session_id bigint(20) unsigned NOT NULL,
@@ -99,7 +99,7 @@ class Link_Analyzer_Plugin_Class {
 				ON DELETE CASCADE
 		) $charset_collate;";
 
-		// Use WordPress dbDelta for table creation
+		// Use WordPress dbDelta for table creation.
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		dbDelta( $sql_sessions );
@@ -120,7 +120,7 @@ class Link_Analyzer_Plugin_Class {
 		$plugin = isset( $_REQUEST['plugin'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['plugin'] ) ) : '';
 		check_admin_referer( "activate-plugin_{$plugin}" );
 
-				// Create database tables
+				// Create database tables.
 				self::create_tables();
 
 		add_option( 'link_analyzer_db_version', self::DB_VERSION );
@@ -142,15 +142,15 @@ class Link_Analyzer_Plugin_Class {
 		global $wpdb;
 		$tables = self::get_table_names();
 
-		// Drop tables in reverse order due to foreign key constraints
-		$wpdb->query( "DROP TABLE IF EXISTS {$tables['session_links']}" );
-		$wpdb->query( "DROP TABLE IF EXISTS {$tables['links']}" );
-		$wpdb->query( "DROP TABLE IF EXISTS {$tables['sessions']}" );
+		// Drop tables in reverse order due to foreign key constraints.
+		$wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %s', $tables['session_links'] ) );
+		$wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %s', $tables['links'] ) );
+		$wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %s', $tables['sessions'] ) );
 
-		// Remove database version option
+		// Remove database version option.
 		delete_option( 'link_analyzer_db_version' );
 
-		// Clear any cached data
+		// Clear any cached data.
 		wp_cache_flush();
 	}
 

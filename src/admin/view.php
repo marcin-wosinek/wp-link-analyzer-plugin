@@ -11,7 +11,7 @@ function admin_page_view() {
 		Link Analyzer
 	</h1>
 	<p>
-	DB Version: <?php echo get_option( 'link_analyzer_db_version' ); ?>
+	DB Version: <?php echo esc_html( get_option( 'link_analyzer_db_version' ) ); ?>
 	</p>
 	<?php
 }
