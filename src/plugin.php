@@ -18,6 +18,8 @@ require 'api/add-data.php';
  */
 class Rocket_Wpc_Plugin_Class {
 
+	public const DB_VERSION = '1.0';
+
 	/**
 	 * Manages plugin initialization
 	 *
@@ -41,6 +43,8 @@ class Rocket_Wpc_Plugin_Class {
 		}
 		$plugin = isset( $_REQUEST['plugin'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['plugin'] ) ) : '';
 		check_admin_referer( "activate-plugin_{$plugin}" );
+
+		add_option( 'link_analyzer_db_version', self::DB_VERSION );
 	}
 
 	/**
