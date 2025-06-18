@@ -42,13 +42,13 @@ require_once __DIR__ . '/src/support/exceptions.php';
  * @return void
  */
 function wpc_crawler_plugin_init() {
-	$wpc_crawler_plugin = new Rocket_Wpc_Plugin_Class();
+	$wpc_crawler_plugin = new Link_Analyzer_Plugin_Class();
 }
 add_action( 'plugins_loaded', __NAMESPACE__ . '\wpc_crawler_plugin_init' );
 
-register_activation_hook( __FILE__, __NAMESPACE__ . '\Rocket_Wpc_Plugin_Class::wpc_activate' );
-register_uninstall_hook( __FILE__, __NAMESPACE__ . '\Rocket_Wpc_Plugin_Class::wpc_uninstall' );
+register_activation_hook( __FILE__, __NAMESPACE__ . '\Link_Analyzer_Plugin_Class::wpc_activate' );
+register_uninstall_hook( __FILE__, __NAMESPACE__ . '\Link_Analyzer_Plugin_Class::wpc_uninstall' );
 
-add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\Rocket_Wpc_Plugin_Class::wpc_script_enqueue' );
-add_action( 'admin_menu', __NAMESPACE__ . '\Rocket_Wpc_Plugin_Class::wpc_admin_menu' );
-add_action( 'rest_api_init', __NAMESPACE__ . '\Rocket_Wpc_Plugin_Class::wpc_rest_api_init' );
+add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\Link_Analyzer_Plugin_Class::wpc_script_enqueue' );
+add_action( 'admin_menu', __NAMESPACE__ . '\Link_Analyzer_Plugin_Class::wpc_admin_menu' );
+add_action( 'rest_api_init', __NAMESPACE__ . '\Link_Analyzer_Plugin_Class::wpc_rest_api_init' );

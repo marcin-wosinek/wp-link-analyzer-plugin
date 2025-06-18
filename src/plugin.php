@@ -16,7 +16,7 @@ require 'api/add-data.php';
 /**
  * Main plugin class. It manages initialization, install, and activations.
  */
-class Rocket_Wpc_Plugin_Class {
+class Link_Analyzer_Plugin_Class {
 
 	public const DB_VERSION = '1.0';
 
