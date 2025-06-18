@@ -40,7 +40,10 @@ function admin_page_view() {
 		</table>
 
 		<h2>Screen Height Distribution</h2>
-		<?php echo esc_html( ScreenHeightChart::render( $screen_heights ) ); ?>
+		<?php
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- SVG content is safe as it's generated internally
+		echo ScreenHeightChart::render( $screen_heights );
+		?>
 
 		<h2>Link Data</h2>
 		<table class="wp-list-table widefat fixed striped">
