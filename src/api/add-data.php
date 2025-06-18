@@ -30,7 +30,7 @@ class Add_Data_Controller {
 					'callback' => array( $this, 'add_data' ),
 				),
 				// Register our schema callback.
-				'schema' => array( $this, 'add_data_schema' ),
+				// 'schema' => array( $this, 'add_data_schema' ),
 			)
 		);
 
@@ -44,6 +44,25 @@ class Add_Data_Controller {
 				),
 			)
 		);
+	}
+
+	/**
+	 * Schema for adding link data.
+	 *
+	 * @return array schema desription
+	 */
+	public function add_data_schema() {
+	}
+
+	/**
+	 * Saves the provided by the call.
+	 *
+	 * @param WP_REST_Request $request Current request.
+	 */
+	public function add_data( $request ) {
+		$json_params = $request->get_json_params();
+
+		return rest_ensure_response( $json_params );
 	}
 
 	/**

@@ -25,8 +25,9 @@ window.addEventListener("load", function (event) {
 	const data = { screenWidth, screenHeight, linkData };
 
 	// optimistic data send
-	fetch(link_analyzer_obj.addDataUrl, {
+	wp.apiFetch({
+		path: "/link-analyzer/v1/add-data",
 		method: "POST",
-		body: JSON.stringify(data),
+		data,
 	});
 });

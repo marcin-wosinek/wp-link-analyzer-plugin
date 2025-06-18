@@ -80,19 +80,11 @@ class Rocket_Wpc_Plugin_Class {
 			wp_enqueue_script(
 				'link-analyzer',
 				plugins_url( '/script.js', __FILE__ ),
-				array(),
+				array( 'wp-api-fetch' ),
 				'1.0.0',
 				array( 'in_footer' => true )
 			);
 		}
-
-			wp_localize_script(
-				'link-analyzer',
-				'link_analyzer_obj',
-				array(
-					'addDataUrl' => get_rest_url( null, '/link-analyzer/v1/add-data' ),
-				)
-			);
 	}
 
 	/**
