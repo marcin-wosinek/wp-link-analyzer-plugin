@@ -1,6 +1,9 @@
 name: PHP CodeSniffer lint
 
 on:
+  push:
+    branches:
+      - master
   pull_request:
     branches:
       - master
