@@ -194,7 +194,7 @@ class Add_Data_Controller {
 	 * @param array $value The link data to sanitize.
 	 * @return array Sanitized link data
 	 */
-	private function sanitize_link_data( $value ) {
+	public function sanitize_link_data( $value ) {
 		if ( ! is_array( $value ) ) {
 			return array();
 		}
