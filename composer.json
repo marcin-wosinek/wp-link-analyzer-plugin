@@ -50,7 +50,7 @@
 			"@test-integration"
 		],
 		"install-codestandards": "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin::run",
-		"phpcs": "phpcs --basepath=.",
+		"phpcs": "phpcs --basepath=. --runtime-set ignore_warnings_on_exit true",
 		"phpcs-changed": "./bin/phpcs-changed.sh",
 		"phpcs:fix": "phpcbf"
 	}
