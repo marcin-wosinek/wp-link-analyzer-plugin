@@ -3,6 +3,7 @@
 namespace LINK_ANALYZER;
 
 require_once __DIR__ . '/view-data-handler.php';
+require_once __DIR__ . '/components/screen-height-chart.php';
 
 /**
  * View for the admin page
@@ -37,6 +38,9 @@ function admin_page_view() {
 				<?php endforeach; ?>
 			</tbody>
 		</table>
+
+		<h2>Screen Height Distribution</h2>
+		<?php echo esc_html( ScreenHeightChart::render( $screen_heights ) ); ?>
 
 		<h2>Link Data</h2>
 		<table class="wp-list-table widefat fixed striped">
