@@ -28,30 +28,159 @@ class Add_Data_Controller {
 				array(
 					'methods'  => 'POST',
 					'callback' => array( $this, 'add_data' ),
-				),
-				// Register our schema callback.
-				// 'schema' => array( $this, 'add_data_schema' ),
-			)
-		);
-
-		register_rest_route(
-			$this->namespace,
-			'/' . $this->resource_name,
-			array(
-				array(
-					'methods'  => 'GET',
-					'callback' => array( $this, 'dummy_get' ),
+					'args'     => array(
+						'screenWidth'  => array(
+							'required'          => true,
+							'type'              => 'integer',
+							'description'       => 'Screen width in pixels',
+							'sanitize_callback' => 'absint',
+							'validate_callback' => array( $this, 'validate_screen_width' ),
+						),
+						'screenHeight' => array(
+							'required'          => true,
+							'type'              => 'integer',
+							'description'       => 'Screen height in pixels',
+							'sanitize_callback' => 'absint',
+							'validate_callback' => array( $this, 'validate_screen_height' ),
+						),
+						'linkData'     => array(
+							'required'          => true,
+							'type'              => 'array',
+							'description'       => 'Array of link objects with text and href properties',
+							'validate_callback' => array( $this, 'validate_link_data' ),
+							'sanitize_callback' => array( $this, 'sanitize_link_data' ),
+						),
+					),
 				),
 			)
 		);
 	}
 
-	/**
-	 * Schema for adding link data.
-	 *
-	 * @return array schema desription
-	 */
-	public function add_data_schema() {
+	// Validation callback functions
+	public function validate_screen_width( $value, $request, $param ) {
+		if ( ! is_int( $value ) || $value <= 0 ) {
+			return new WP_Error(
+				'invalid_screen_width',
+				'Screen width must be a positive integer',
+				array( 'status' => 400 )
+			);
+		}
+		return true;
+	}
+
+	public function validate_screen_height( $value, $request, $param ) {
+		if ( ! is_int( $value ) || $value <= 0 ) {
+			return new WP_Error(
+				'invalid_screen_height',
+				'Screen height must be a positive integer',
+				array( 'status' => 400 )
+			);
+		}
+		return true;
+	}
+
+	public function validate_link_data( $value, $request, $param ) {
+		// Check if it's an array
+		if ( ! is_array( $value ) ) {
+			return new WP_Error(
+				'invalid_link_data_type',
+				'linkData must be an array',
+				array( 'status' => 400 )
+			);
+		}
+
+		// Check if array is empty
+		if ( empty( $value ) ) {
+			return new WP_Error(
+				'empty_link_data',
+				'linkData array cannot be empty',
+				array( 'status' => 400 )
+			);
+		}
+
+		// Validate each item in the array
+		foreach ( $value as $index => $link ) {
+			// Check if each item is an object (associative array in PHP)
+			if ( ! is_array( $link ) || array_keys( $link ) === range( 0, count( $link ) - 1 ) ) {
+				return new WP_Error(
+					'invalid_link_item_type',
+					sprintf( 'linkData item at index %d must be an object', $index ),
+					array( 'status' => 400 )
+				);
+			}
+
+			// Check required properties
+			if ( ! isset( $link['text'] ) ) {
+				return new WP_Error(
+					'missing_link_text',
+					sprintf( 'linkData item at index %d is missing required "text" property', $index ),
+					array( 'status' => 400 )
+				);
+			}
+
+			if ( ! isset( $link['href'] ) ) {
+				return new WP_Error(
+					'missing_link_href',
+					sprintf( 'linkData item at index %d is missing required "href" property', $index ),
+					array( 'status' => 400 )
+				);
+			}
+
+			// Validate property types
+			if ( ! is_string( $link['text'] ) ) {
+				return new WP_Error(
+					'invalid_link_text_type',
+					sprintf( 'linkData item at index %d: "text" must be a string', $index ),
+					array( 'status' => 400 )
+				);
+			}
+
+			if ( ! is_string( $link['href'] ) ) {
+				return new WP_Error(
+					'invalid_link_href_type',
+					sprintf( 'linkData item at index %d: "href" must be a string', $index ),
+					array( 'status' => 400 )
+				);
+			}
+
+			// Optional: Validate href format (URL)
+			if ( ! filter_var( $link['href'], FILTER_VALIDATE_URL ) ) {
+				return new WP_Error(
+					'invalid_link_href_format',
+					sprintf( 'linkData item at index %d: "href" must be a valid URL', $index ),
+					array( 'status' => 400 )
+				);
+			}
+
+			// Optional: Check for empty strings
+			if ( empty( trim( $link['text'] ) ) ) {
+				return new WP_Error(
+					'empty_link_text',
+					sprintf( 'linkData item at index %d: "text" cannot be empty', $index ),
+					array( 'status' => 400 )
+				);
+			}
+		}
+
+		return true;
+	}
+
+	public function sanitize_link_data( $value ) {
+		if ( ! is_array( $value ) ) {
+			return array();
+		}
+
+		$sanitized = array();
+		foreach ( $value as $link ) {
+			if ( is_array( $link ) && isset( $link['text'] ) && isset( $link['href'] ) ) {
+				$sanitized[] = array(
+					'text' => sanitize_text_field( $link['text'] ),
+					'href' => esc_url_raw( $link['href'] ),
+				);
+			}
+		}
+
+		return $sanitized;
 	}
 
 	/**
@@ -63,12 +192,5 @@ class Add_Data_Controller {
 		$json_params = $request->get_json_params();
 
 		return rest_ensure_response( $json_params );
-	}
-
-	/**
-	 * Dummy response for testing purpose
-	 */
-	public function dummy_get() {
-		return rest_ensure_response( 'all works' );
 	}
 }
