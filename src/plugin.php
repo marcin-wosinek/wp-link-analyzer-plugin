@@ -36,7 +36,7 @@ class Link_Analyzer_Plugin_Class {
 	 *
 	 * @return array
 	 */
-	private static function get_table_names() {
+	public static function get_table_names() {
 		global $wpdb;
 
 		return array(

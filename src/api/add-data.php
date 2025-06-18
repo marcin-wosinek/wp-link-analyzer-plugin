@@ -101,6 +101,7 @@ class Add_Data_Controller {
 	 * @param WP_REST_Request $request Current request.
 	 * @param string          $param The parameter name.
 	 * @return bool|WP_Error True if valid, WP_Error if not.
+	 * @throws WP_Error If the link data is invalid.
 	 */
 	public function validate_link_data( $value, $request, $param ) {
 		// Check if it's an array.
@@ -213,13 +214,124 @@ class Add_Data_Controller {
 	}
 
 	/**
-	 * Saves the provided by the call.
+	 * Saves the data provided by the API call.
 	 *
 	 * @param WP_REST_Request $request Current request.
+	 * @return WP_REST_Response Response object.
+	 * @throws \Exception If there is an error during data insertion.
 	 */
 	public function add_data( $request ) {
-		$json_params = $request->get_json_params();
+		global $wpdb;
 
-		return rest_ensure_response( $json_params );
+		// Get the table names.
+		$tables = \LINK_ANALYZER\Link_Analyzer_Plugin_Class::get_table_names();
+
+		// Get sanitized parameters.
+		$screen_width  = absint( $request->get_param( 'screenWidth' ) );
+		$screen_height = absint( $request->get_param( 'screenHeight' ) );
+		$link_data     = $this->sanitize_link_data( $request->get_param( 'linkData' ) );
+
+		// Start transaction.
+		$wpdb->query( $wpdb->prepare( 'START TRANSACTION' ) );
+
+		try {
+			// 1. Insert session.
+			$session_result = $wpdb->insert(
+				$tables['sessions'],
+				array(
+					'screen_width'  => $screen_width,
+					'screen_height' => $screen_height,
+				),
+				array(
+					'%d',
+					'%d',
+				)
+			);
+
+			if ( false === $session_result ) {
+				throw new \Exception( 'Failed to insert session data.' );
+			}
+
+			$session_id = $wpdb->insert_id;
+
+			// 2. Process links.
+			$link_order = 0;
+			foreach ( $link_data as $link ) {
+				// Check if link already exists.
+				$existing_link    = $wpdb->get_row(
+					$wpdb->prepare(
+						"SELECT id FROM `{$wpdb->prefix}linkanalyzer_links` WHERE link_text = %s AND link_href = %s",
+						$link['text'],
+						$link['href']
+					)
+				);
+				$existing_link_id = $existing_link ? $existing_link->id : null;
+
+				// If link doesn't exist, insert it.
+				if ( null === $existing_link_id ) {
+					$link_result = $wpdb->insert(
+						$tables['links'],
+						array(
+							'link_text' => $link['text'],
+							'link_href' => $link['href'],
+						),
+						array(
+							'%s',
+							'%s',
+						)
+					);
+
+					if ( false === $link_result ) {
+						throw new \Exception( 'Failed to insert link data.' );
+					}
+
+					$link_id = $wpdb->insert_id;
+				} else {
+					$link_id = $existing_link_id;
+				}
+
+				// 3. Create relationship between session and link
+				$session_link_result = $wpdb->insert(
+					$tables['session_links'],
+					array(
+						'session_id' => $session_id,
+						'link_id'    => $link_id,
+						'link_order' => $link_order++,
+					),
+					array(
+						'%d',
+						'%d',
+						'%d',
+					)
+				);
+
+				if ( false === $session_link_result ) {
+					throw new \Exception( 'Failed to create session-link relationship.' );
+				}
+			}
+
+			// Commit transaction.
+			$wpdb->query( $wpdb->prepare( 'COMMIT' ) );
+
+			// Return success response.
+			return rest_ensure_response(
+				array(
+					'success'     => true,
+					'message'     => 'Data saved successfully.',
+					'session_id'  => $session_id,
+					'links_count' => count( $link_data ),
+				)
+			);
+
+		} catch ( \Exception $e ) {
+			// Rollback transaction on error.
+			$wpdb->query( $wpdb->prepare( 'ROLLBACK' ) );
+
+			return new \WP_Error(
+				'data_insertion_failed',
+				$e->getMessage(),
+				array( 'status' => 500 )
+			);
+		}
 	}
 }
