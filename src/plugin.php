@@ -10,8 +10,9 @@
 
 namespace LINK_ANALYZER;
 
-require 'admin/view.php';
-require 'api/add-data.php';
+require_once 'admin/view.php';
+require_once 'api/add-data.php';
+require_once 'db.php';
 
 /**
  * Main plugin class. It manages initialization, install, and activations.
@@ -186,5 +187,20 @@ class Link_Analyzer_Plugin_Class {
 	public static function wpc_rest_api_init() {
 		$controller = new Add_Data_Controller();
 		$controller->register_routes();
+	}
+
+	/**
+	 * Clean up old sessions data
+	 *
+	 * @return void
+	 */
+	public static function wpc_cron_cleanup() {
+		// Remove sessions older than 7 days.
+		$deleted = DB_Handler::remove_old_sessions();
+
+		// Log the cleanup action.
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			error_log( sprintf( 'Link Analyzer: Cleaned up %d old sessions', $deleted ) );
+		}
 	}
 }
