@@ -29,17 +29,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="link-analyzer-admin-actions">
 		<button id="link-analyzer-remove-old-sessions" class="button button-primary">
-			<?php esc_html_e( 'Remove Old Sessions', 'link-analyzer' ); ?>
+			<?php esc_html_e( 'Remove old sessions', 'link-analyzer' ); ?>
 		</button>
 		<span id="link-analyzer-remove-old-sessions-status" class="status-message"></span>
 	</div>
 
-	<h2>Screen Height Statistics</h2>
+	<h2>Screen height statistics</h2>
 	<table class="wp-list-table widefat fixed striped">
 		<thead>
 			<tr>
-				<th>Screen Height</th>
-				<th>Number of Sessions</th>
+				<th>Screen height</th>
+				<th>Number of sessions</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -52,7 +52,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</tbody>
 	</table>
 
-	<h2>Screen Height Distribution</h2>
 	<?php
     // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- SVG content is safe as it's generated internally
 	echo Screen_Height_Chart::render( $view_data['screen_heights'] );
@@ -62,9 +61,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<table class="wp-list-table widefat fixed striped">
 		<thead>
 			<tr>
-				<th>Link Text</th>
+				<th>Link text</th>
 				<th>URL</th>
-				<th>Number of Sessions</th>
+				<th>Number of sessions</th>
 			</tr>
 		</thead>
 		<tbody>

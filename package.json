@@ -1,0 +1,13 @@
+{
+	"name": "wp-link-analyzer-plugin",
+	"version": "1.0.0",
+	"description": "WordPress plugin to analyze links shown above the fold",
+	"scripts": {
+		"test:e2e": "playwright test",
+		"test:e2e:ui": "playwright test --ui",
+		"install:playwright": "npx playwright install --with-deps"
+	},
+	"devDependencies": {
+		"@playwright/test": "^1.40.0"
+	}
+}
