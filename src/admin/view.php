@@ -10,10 +10,10 @@ require_once __DIR__ . '/components/screen-height-chart.php';
  */
 function admin_page_view() {
 	// Get screen height statistics.
-	$screen_heights = View_Data_Handler::get_screen_height_stats();
+	$screen_heights = DB_Handler::get_screen_height_stats();
 
 	// Get link data.
-	$links = View_Data_Handler::get_link_data();
+	$links = DB_Handler::get_link_data();
 
 	?>
 	<div class="wrap">

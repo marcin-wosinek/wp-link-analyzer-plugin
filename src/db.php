@@ -2,7 +2,7 @@
 
 namespace LINK_ANALYZER;
 
-class View_Data_Handler {
+class DB_Handler {
 
 	/**
 	 * Get screen height statistics
