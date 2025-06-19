@@ -2,7 +2,7 @@
 
 namespace LINK_ANALYZER;
 
-require_once __DIR__ . '/view-data-handler.php';
+require_once __DIR__ . '/../db.php';
 require_once __DIR__ . '/components/screen-height-chart.php';
 
 /**
