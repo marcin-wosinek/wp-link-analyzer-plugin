@@ -1,0 +1,22 @@
+name: 'PHP Setup'
+description: 'Sets up PHP environment with specified version'
+
+inputs:
+  php-version:
+    description: 'PHP version to use'
+    required: false
+    default: '8.1'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ inputs.php-version }}
+        coverage: none
+        tools: composer:v2
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-interaction --no-scripts
+      shell: bash

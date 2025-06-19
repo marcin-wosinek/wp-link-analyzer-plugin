@@ -8,8 +8,9 @@ on:
     branches:
       - master
       - develop
+
 jobs:
-  run:
+  phpcs:
     runs-on: ${{ matrix.operating-system }}
 
     strategy:
@@ -23,15 +24,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
+    - name: Setup PHP and install dependencies
+      uses: ./.github/actions/php-setup
       with:
         php-version: ${{ matrix.php-versions }}
-        coverage: none  # XDebug can be enabled here 'coverage: xdebug'
-        tools: composer:v2
-
-    - name: Install dependencies
-      run: composer install --prefer-dist --no-interaction --no-scripts
 
     - name: Lint with phpcs
       run: composer phpcs
