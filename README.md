@@ -19,7 +19,7 @@ This will provide following HTTP access:
 
 To use wp-cli in this configuration, you can use:
 ```
-docker compose run --rm <command to run>
+docker compose run --rm wpcli <command to run>
 ```
 
 For example:
