@@ -10,11 +10,21 @@
 
 namespace LINK_ANALYZER;
 
-require_once 'admin/admin-controller.php';
-require_once 'admin/view-renderer.php';
-require_once 'admin/components/screen-height-chart.php';
-require_once 'api/add-data.php';
-require_once 'db.php';
+// Define the plugin base directory constant if not already defined.
+if ( ! defined( 'LINK_ANALYZER_PLUGIN_DIR' ) ) {
+	define( 'LINK_ANALYZER_PLUGIN_DIR', plugin_dir_path( __DIR__ ) );
+}
+
+// Admin files.
+require_once LINK_ANALYZER_PLUGIN_DIR . 'src/admin/admin-controller.php';
+require_once LINK_ANALYZER_PLUGIN_DIR . 'src/admin/view-renderer.php';
+require_once LINK_ANALYZER_PLUGIN_DIR . 'src/admin/components/screen-height-chart.php';
+
+// API files.
+require_once LINK_ANALYZER_PLUGIN_DIR . 'src/api/add-data.php';
+
+// Core files.
+require_once LINK_ANALYZER_PLUGIN_DIR . 'src/db.php';
 
 /**
  * Main plugin class. It manages initialization, install, and activations.

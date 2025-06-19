@@ -2,8 +2,16 @@
 
 namespace LINK_ANALYZER;
 
-require_once __DIR__ . '/../db.php';
-require_once __DIR__ . '/components/screen-height-chart.php';
+// Define the plugin base directory constant if not already defined.
+if ( ! defined( 'LINK_ANALYZER_PLUGIN_DIR' ) ) {
+	define( 'LINK_ANALYZER_PLUGIN_DIR', plugin_dir_path( dirname( __DIR__ ) ) );
+}
+
+// Core files.
+require_once LINK_ANALYZER_PLUGIN_DIR . 'src/db.php';
+
+// Component files.
+require_once LINK_ANALYZER_PLUGIN_DIR . 'src/admin/components/screen-height-chart.php';
 
 /**
  * View for the admin page
