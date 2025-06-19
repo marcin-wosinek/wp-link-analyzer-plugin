@@ -28,9 +28,6 @@ class DB_Handler {
 	public static function remove_old_sessions( $older_than_days = 7 ) {
 		global $wpdb;
 
-		// Get table names.
-		$tables = self::get_table_names();
-
 		// Calculate the cutoff date.
 		$cutoff_date = gmdate( 'Y-m-d H:i:s', strtotime( "-{$older_than_days} days" ) );
 
