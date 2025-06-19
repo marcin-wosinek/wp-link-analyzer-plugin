@@ -1,3 +1,12 @@
+/**
+ * Link Analyzer frontend JavaScript for the home page.
+ *
+ * @package     Link Analyzer
+ * @since       1.0
+ * @author      Marcin Wosinek
+ * @license     GPL-2.0-or-later
+ */
+
 // TODO decide on the trade-off: as we wait for images to load, the user may be
 // already scrolling down, therefore affecting what links are above the fold.
 window.addEventListener("load", function (event) {

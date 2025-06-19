@@ -173,18 +173,21 @@ class Link_Analyzer_Plugin_Class {
 	}
 
 	/**
-	 * Add script
+	 * Add script for the home page
 	 *
 	 * @return void
 	 */
 	public static function wpc_script_enqueue() {
 		if ( is_home() ) {
+			$plugin_dir = plugin_dir_path( __DIR__ );
+			$plugin_url = plugin_dir_url( __DIR__ );
+
 			wp_enqueue_script(
 				'link-analyzer',
-				plugins_url( '/script.js', __FILE__ ),
+				$plugin_url . 'src/js/home-page.js',
 				array( 'wp-api-fetch' ),
-				'1.0.0',
-				array( 'in_footer' => true )
+				filemtime( $plugin_dir . 'src/js/home-page.js' ),
+				true
 			);
 		}
 	}
