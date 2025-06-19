@@ -224,7 +224,7 @@ class Add_Data_Controller {
 		global $wpdb;
 
 		// Get the table names.
-		$tables = \LINK_ANALYZER\Link_Analyzer_Plugin_Class::get_table_names();
+		$tables = \LINK_ANALYZER\DB_Handler::get_table_names();
 
 		// Get sanitized parameters.
 		$screen_width  = absint( $request->get_param( 'screenWidth' ) );

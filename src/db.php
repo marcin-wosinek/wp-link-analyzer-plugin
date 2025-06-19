@@ -5,6 +5,21 @@ namespace LINK_ANALYZER;
 class DB_Handler {
 
 	/**
+	 * Get table names with WordPress prefix
+	 *
+	 * @return array
+	 */
+	public static function get_table_names() {
+		global $wpdb;
+
+		return array(
+			'sessions'      => $wpdb->prefix . 'linkanalyzer_sessions',
+			'links'         => $wpdb->prefix . 'linkanalyzer_links',
+			'session_links' => $wpdb->prefix . 'linkanalyzer_session_links',
+		);
+	}
+
+	/**
 	 * Remove sessions older than a specified number of days
 	 *
 	 * @param int $older_than_days Number of days to keep sessions for (default: 7).
@@ -14,7 +29,7 @@ class DB_Handler {
 		global $wpdb;
 
 		// Get table names.
-		$tables = Link_Analyzer_Plugin_Class::get_table_names();
+		$tables = self::get_table_names();
 
 		// Calculate the cutoff date.
 		$cutoff_date = gmdate( 'Y-m-d H:i:s', strtotime( "-{$older_than_days} days" ) );
@@ -23,7 +38,7 @@ class DB_Handler {
 		// Note: We don't need to delete from session_links table because of the ON DELETE CASCADE constraint.
 		$result = $wpdb->query(
 			$wpdb->prepare(
-				"DELETE FROM `{$wpdb->prefix}sessions` WHERE created_at < %s",
+				"DELETE FROM `{$wpdb->prefix}linkanalyzer_sessions` WHERE created_at < %s",
 				$cutoff_date
 			)
 		);

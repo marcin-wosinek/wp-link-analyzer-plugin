@@ -32,21 +32,6 @@ class Link_Analyzer_Plugin_Class {
 	}
 
 	/**
-	 * Get table names with WordPress prefix
-	 *
-	 * @return array
-	 */
-	public static function get_table_names() {
-		global $wpdb;
-
-		return array(
-			'sessions'      => $wpdb->prefix . 'linkanalyzer_sessions',
-			'links'         => $wpdb->prefix . 'linkanalyzer_links',
-			'session_links' => $wpdb->prefix . 'linkanalyzer_session_links',
-		);
-	}
-
-	/**
 	 * Create database tables
 	 *
 	 * @return void
@@ -54,7 +39,7 @@ class Link_Analyzer_Plugin_Class {
 	private static function create_tables() {
 		global $wpdb;
 
-		$tables          = self::get_table_names();
+		$tables          = DB_Handler::get_table_names();
 		$charset_collate = $wpdb->get_charset_collate();
 
 		// Sessions table.
@@ -140,7 +125,7 @@ class Link_Analyzer_Plugin_Class {
 		check_admin_referer( "deactivate-plugin_{$plugin}" );
 
 		global $wpdb;
-		$tables = self::get_table_names();
+		$tables = DB_Handler::get_table_names();
 
 		// Drop tables in reverse order due to foreign key constraints.
 		$wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %s', $tables['session_links'] ) );
