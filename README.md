@@ -1,9 +1,13 @@
-Repository template for our packages
+# Link Analyzer Plugin
 
-# Usage
-When creating a new repository for a package or a plugin, select this
-repository as the template. It will initialize the new repository with all the
-structure & files contained in the template.
+Plugin to analyze links shown above the fold on the home page.
+
+## Installation
+
+You can install the plugin on your website. The plugin will create a new menu item in the WordPress admin panel.
+
+![Link Analyzer Admin Dashboard](assets/images/admin-screenshot.png)
+
 
 ## Starting
 
@@ -35,14 +39,3 @@ docker compose run --rm wpcli wp core version
 - Run `composer run-tests`
 - Run `composer phpcs`
 - You can install the plugin on your website.
-
-# Content
-* `bin/install-wp-tests.sh`: installer for WordPress tests suite
-* `.editorconfig`: config file for your IDE to follow our coding standards
-* `.gitattributes`: list of directories & files excluded from export
-* `.gitignore`: list of directories & files excluded from versioning
-* `.travis.yml`: Travis-CI configuration file
-* `composer.json`: Base composer file to customize for the project
-* `LICENSE`: License file using GPLv3
-* `phpcs.xml`: Base PHP Code Sniffer configuration file to customize for the project
-* `README.md`: The readme displayed on Github, to customize for the project
