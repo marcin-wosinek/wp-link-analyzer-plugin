@@ -37,6 +37,21 @@ services:
     depends_on:
       - db
 
+  wpcli:
+    image: wordpress:cli
+    profiles: ["cli"]  # This prevents it from starting by default
+    command: tail -f /dev/null  # Keeps container running
+    volumes:
+      - wordpress:/var/www/html
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
+    depends_on:
+      - db
+      - wordpress
+
 volumes:
   wordpress:
   db:

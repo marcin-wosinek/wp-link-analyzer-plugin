@@ -1,7 +1,31 @@
 Repository template for our packages
 
 # Usage
-When creating a new repository for a package or a plugin, select this repository as the template. It will initialize the new repository with all the structure & files contained in the template.
+When creating a new repository for a package or a plugin, select this
+repository as the template. It will initialize the new repository with all the
+structure & files contained in the template.
+
+## Starting
+
+For local testing, you can use the docker compose set up:
+
+```
+docker compose up
+```
+
+This will provide following HTTP access:
+* http://localhost:8080 — WordPress instance where you can activate the plugin,
+* http://localhost:8081 — PHPMyAdmin,
+
+To use wp-cli in this configuration, you can use:
+```
+docker compose run --rm <command to run>
+```
+
+For example:
+```
+docker compose run --rm wpcli wp core version
+```
 
 # Get started
 - Have a mysql DB ready and a user — for example, `docker compose up`
