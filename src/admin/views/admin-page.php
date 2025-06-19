@@ -27,6 +27,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<p>DB Version: <?php echo esc_html( $view_data['db_version'] ); ?></p>
 
+	<div class="link-analyzer-admin-actions">
+		<button id="link-analyzer-remove-old-sessions" class="button button-primary">
+			<?php esc_html_e( 'Remove Old Sessions', 'link-analyzer' ); ?>
+		</button>
+		<span id="link-analyzer-remove-old-sessions-status" class="status-message"></span>
+	</div>
+
 	<h2>Screen Height Statistics</h2>
 	<table class="wp-list-table widefat fixed striped">
 		<thead>

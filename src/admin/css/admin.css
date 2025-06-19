@@ -1,0 +1,22 @@
+/**
+ * Link Analyzer admin styles.
+ *
+ * @package     Link Analyzer
+ * @since       1.0
+ * @author      Marcin Wosinek
+ * @license     GPL-2.0-or-later
+ */
+
+.link-analyzer-admin-actions {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.link-analyzer-admin-actions .status-message {
+    margin-left: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}

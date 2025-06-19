@@ -189,8 +189,6 @@ class Link_Analyzer_Plugin_Class {
 		}
 	}
 
-
-
 	/**
 	 * Register API endpoint
 	 *

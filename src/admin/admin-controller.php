@@ -52,6 +52,7 @@ class Admin_Controller {
 	public function init() {
 		add_action( 'admin_menu', array( $this, 'register_admin_menu' ) );
 		add_action( 'rest_api_init', array( $this, 'register_admin_endpoints' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 	}
 
 	/**
@@ -87,6 +88,52 @@ class Admin_Controller {
 
 		// Render the view.
 		$this->renderer->render( 'admin-page', $data );
+	}
+
+	/**
+	 * Enqueue admin scripts and styles.
+	 *
+	 * @param string $hook The current admin page.
+	 * @return void
+	 */
+	public function enqueue_admin_scripts( $hook ) {
+		// Only enqueue on our admin page.
+		if ( 'toplevel_page_' . self::MENU_SLUG !== $hook ) {
+			return;
+		}
+
+		// Get plugin directory and URL.
+		$plugin_dir = plugin_dir_path( dirname( __DIR__, 1 ) );
+		$plugin_url = plugin_dir_url( dirname( __DIR__, 1 ) );
+
+		// Enqueue the admin CSS.
+		wp_enqueue_style(
+			'link-analyzer-admin-css',
+			$plugin_url . 'src/admin/css/admin.css',
+			array(),
+			filemtime( $plugin_dir . 'src/admin/css/admin.css' )
+		);
+
+		// Enqueue the admin script.
+		wp_enqueue_script(
+			'link-analyzer-admin',
+			$plugin_url . 'src/admin/js/admin.js',
+			array( 'wp-api-fetch' ),
+			filemtime( $plugin_dir . 'src/admin/js/admin.js' ),
+			true
+		);
+
+		// Localize the script with translation strings and other data.
+		wp_localize_script(
+			'link-analyzer-admin',
+			'linkAnalyzerAdmin',
+			array(
+				'i18n' => array(
+					'processing' => esc_html__( 'Processing...', 'link-analyzer' ),
+					'error'      => esc_html__( 'An error occurred while processing your request.', 'link-analyzer' ),
+				),
+			)
+		);
 	}
 
 	/**
