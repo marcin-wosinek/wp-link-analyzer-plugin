@@ -50,6 +50,20 @@ register_activation_hook( __FILE__, __NAMESPACE__ . '\Link_Analyzer_Plugin_Class
 register_uninstall_hook( __FILE__, __NAMESPACE__ . '\Link_Analyzer_Plugin_Class::wpc_uninstall' );
 
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\Link_Analyzer_Plugin_Class::wpc_script_enqueue' );
+
+// Register both plugin and admin REST API endpoints.
+add_action(
+	'rest_api_init',
+	function () {
+		// Register main plugin endpoints.
+		Link_Analyzer_Plugin_Class::wpc_rest_api_init();
+
+		// Register admin endpoints.
+		$admin_controller = new Admin_Controller();
+		$admin_controller->register_admin_endpoints();
+	}
+);
+
 // Initialize Admin Controller if in admin area.
 if ( is_admin() ) {
 	add_action(
@@ -60,5 +74,4 @@ if ( is_admin() ) {
 		}
 	);
 }
-add_action( 'rest_api_init', __NAMESPACE__ . '\Link_Analyzer_Plugin_Class::wpc_rest_api_init' );
 add_action( 'link_analyzer_cron_hook', __NAMESPACE__ . '\Link_Analyzer_Plugin_Class::wpc_cron_cleanup' );

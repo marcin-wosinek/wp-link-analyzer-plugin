@@ -51,7 +51,6 @@ class Admin_Controller {
 	 */
 	public function init() {
 		add_action( 'admin_menu', array( $this, 'register_admin_menu' ) );
-		add_action( 'rest_api_init', array( $this, 'register_admin_endpoints' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 	}
 
