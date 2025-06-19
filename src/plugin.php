@@ -10,7 +10,9 @@
 
 namespace LINK_ANALYZER;
 
-require_once 'admin/view.php';
+require_once 'admin/admin-controller.php';
+require_once 'admin/view-renderer.php';
+require_once 'admin/components/screen-height-chart.php';
 require_once 'api/add-data.php';
 require_once 'db.php';
 
@@ -193,7 +195,8 @@ class Link_Analyzer_Plugin_Class {
 	 * @return void
 	 */
 	public static function wpc_admin_menu() {
-		add_menu_page( 'Link analyzer plugin', 'Link analyzer', 'manage_options', 'link-analyzer-plugin', __NAMESPACE__ . '\admin_page_view' );
+		$admin_controller = new Admin_Controller();
+		$admin_controller->register_admin_menu();
 	}
 
 	/**

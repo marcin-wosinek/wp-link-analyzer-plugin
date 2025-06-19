@@ -2,7 +2,15 @@
 
 namespace LINK_ANALYZER;
 
-class ScreenHeightChart {
+/**
+ * Screen Height Chart Component.
+ *
+ * @package     Link Analyzer
+ * @since       1.0
+ * @author      Marcin Wosinek
+ * @license     GPL-2.0-or-later
+ */
+class Screen_Height_Chart {
 
 	/**
 	 * Render the SVG bar chart.
