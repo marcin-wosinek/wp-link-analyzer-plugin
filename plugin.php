@@ -31,8 +31,8 @@ if ( ! defined( 'ABSPATH' ) ) { // If WordPress is not loaded.
 }
 
 // Load the dependencies installed through composer.
-require_once __DIR__ . '/src/plugin.php';
 require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/src/plugin.php';
 require_once __DIR__ . '/src/support/exceptions.php';
 
 // Plugin initialization.
@@ -52,4 +52,4 @@ register_uninstall_hook( __FILE__, __NAMESPACE__ . '\Link_Analyzer_Plugin_Class:
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\Link_Analyzer_Plugin_Class::wpc_script_enqueue' );
 add_action( 'admin_menu', __NAMESPACE__ . '\Link_Analyzer_Plugin_Class::wpc_admin_menu' );
 add_action( 'rest_api_init', __NAMESPACE__ . '\Link_Analyzer_Plugin_Class::wpc_rest_api_init' );
-add_action( 'bl_cron_hook', __NAMESPACE__ . '\Link_Analyzer_Plugin_Class::wpc_cron_cleanup' );
+add_action( 'link_analyzer_cron_hook', __NAMESPACE__ . '\Link_Analyzer_Plugin_Class::wpc_cron_cleanup' );
