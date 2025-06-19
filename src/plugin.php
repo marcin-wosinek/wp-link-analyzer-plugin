@@ -107,7 +107,18 @@ class Link_Analyzer_Plugin_Class {
 		check_admin_referer( "activate-plugin_{$plugin}" );
 
 				// Create database tables.
-				self::create_tables();
+		self::create_tables();
+
+		// Schedule daily cron job to run at 3:00 AM.
+		if ( ! wp_next_scheduled( 'link_analyzer_cron_hook' ) ) {
+			// Get the current time in the WordPress timezone.
+			$timezone        = get_option( 'timezone_string' ) ? get_option( 'timezone_string' ) : 'UTC';
+			$timezone_object = new \DateTimeZone( $timezone );
+			$datetime        = new \DateTime( 'tomorrow 03:00:00', $timezone_object );
+
+			// Schedule the event.
+			wp_schedule_event( $datetime->getTimestamp(), 'daily', 'link_analyzer_cron_hook' );
+		}
 
 		add_option( 'link_analyzer_db_version', self::DB_VERSION );
 	}
@@ -138,6 +149,12 @@ class Link_Analyzer_Plugin_Class {
 
 		// Clear any cached data.
 		wp_cache_flush();
+
+		// Clear scheduled cron job.
+		$timestamp = wp_next_scheduled( 'link_analyzer_cron_hook' );
+		if ( $timestamp ) {
+			wp_unschedule_event( $timestamp, 'link_analyzer_cron_hook' );
+		}
 	}
 
 	/**
