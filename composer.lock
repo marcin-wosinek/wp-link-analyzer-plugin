@@ -1009,12 +1009,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHPCSUtils.git",
-                "reference": "d3b4a634ca279dc06ca56a79df6414d542c25ffc"
+                "reference": "bde5bf6dcf74021190bacd2f158383ceec4fb4d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHPCSUtils/zipball/d3b4a634ca279dc06ca56a79df6414d542c25ffc",
-                "reference": "d3b4a634ca279dc06ca56a79df6414d542c25ffc",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHPCSUtils/zipball/bde5bf6dcf74021190bacd2f158383ceec4fb4d9",
+                "reference": "bde5bf6dcf74021190bacd2f158383ceec4fb4d9",
                 "shasum": ""
             },
             "require": {
@@ -1095,7 +1095,7 @@
                     "type": "thanks_dev"
                 }
             ],
-            "time": "2025-06-18T07:26:41+00:00"
+            "time": "2025-06-13T04:32:06+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -1401,12 +1401,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "f2fcb2190b93ee42a36391ab2052d4678820edf1"
+                "reference": "6013ec0cda014c156f3f76edca11eb3b746ce84e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/f2fcb2190b93ee42a36391ab2052d4678820edf1",
-                "reference": "f2fcb2190b93ee42a36391ab2052d4678820edf1",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6013ec0cda014c156f3f76edca11eb3b746ce84e",
+                "reference": "6013ec0cda014c156f3f76edca11eb3b746ce84e",
                 "shasum": ""
             },
             "require": {
@@ -1499,7 +1499,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-06-19T14:51:29+00:00"
+            "time": "2025-05-25T05:37:40+00:00"
         },
         {
             "name": "psr/log",
@@ -2344,12 +2344,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "611f7b1fa15e265c7b7b7b7ef0e4905bb5e1add8"
+                "reference": "6739594c6563c153bb32b756db6232310b0e4cf7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/611f7b1fa15e265c7b7b7b7ef0e4905bb5e1add8",
-                "reference": "611f7b1fa15e265c7b7b7b7ef0e4905bb5e1add8",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/6739594c6563c153bb32b756db6232310b0e4cf7",
+                "reference": "6739594c6563c153bb32b756db6232310b0e4cf7",
                 "shasum": ""
             },
             "require": {
@@ -2421,7 +2421,7 @@
                     "type": "thanks_dev"
                 }
             ],
-            "time": "2025-06-17T22:52:59+00:00"
+            "time": "2025-06-14T08:45:00+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -2479,12 +2479,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/WordPress/WordPress-Coding-Standards.git",
-                "reference": "20f3d5e4101c9d607b274cfb2ca5e728893734cc"
+                "reference": "48e59e97eb950dc011d25a6759feb949afd802a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WordPress/WordPress-Coding-Standards/zipball/20f3d5e4101c9d607b274cfb2ca5e728893734cc",
-                "reference": "20f3d5e4101c9d607b274cfb2ca5e728893734cc",
+                "url": "https://api.github.com/repos/WordPress/WordPress-Coding-Standards/zipball/48e59e97eb950dc011d25a6759feb949afd802a0",
+                "reference": "48e59e97eb950dc011d25a6759feb949afd802a0",
                 "shasum": ""
             },
             "require": {
@@ -2499,7 +2499,7 @@
             },
             "require-dev": {
                 "php-parallel-lint/php-console-highlighter": "^1.0.0",
-                "php-parallel-lint/php-parallel-lint": "^1.4.0",
+                "php-parallel-lint/php-parallel-lint": "^1.3.2",
                 "phpcompatibility/php-compatibility": "^9.0",
                 "phpcsstandards/phpcsdevtools": "^1.2.0",
                 "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0"
@@ -2538,7 +2538,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2025-06-19T12:21:46+00:00"
+            "time": "2025-06-16T06:29:00+00:00"
         },
         {
             "name": "wp-media/phpunit",

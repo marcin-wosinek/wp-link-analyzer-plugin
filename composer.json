@@ -23,10 +23,8 @@
 		"brain/monkey": "^2.0",
 		"dealerdirect/phpcodesniffer-composer-installer": "^1",
 		"filp/whoops": "~2.0",
-		"hamcrest/hamcrest-php": "^2.0.1",
 		"phpcompatibility/phpcompatibility-wp": "^2.0",
 		"phpunit/phpunit": "^5.7 || ^7 || ^8",
-		"psr/log": "^1.1.4",
 		"raveren/kint": "~1.0",
 		"wp-coding-standards/wpcs": "dev-develop",
 		"wp-media/phpunit": "^3"
