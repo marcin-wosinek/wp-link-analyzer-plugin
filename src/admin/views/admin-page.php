@@ -58,7 +58,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	echo Screen_Height_Chart::render( $view_data['screen_heights'] );
 	?>
 
-	<h2>Link Data</h2>
+	<h2>Links above the fold</h2>
 	<table class="wp-list-table widefat fixed striped">
 		<thead>
 			<tr>
