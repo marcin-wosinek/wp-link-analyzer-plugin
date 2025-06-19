@@ -189,15 +189,7 @@ class Link_Analyzer_Plugin_Class {
 		}
 	}
 
-	/**
-	 * Add admin menu
-	 *
-	 * @return void
-	 */
-	public static function wpc_admin_menu() {
-		$admin_controller = new Admin_Controller();
-		$admin_controller->register_admin_menu();
-	}
+
 
 	/**
 	 * Register API endpoint
