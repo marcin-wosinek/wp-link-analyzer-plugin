@@ -163,4 +163,57 @@ class DB_Handler {
 
 		return $formatted_links;
 	}
+
+	/**
+	 * Get total number of sessions.
+	 *
+	 * @return int Total number of sessions.
+	 */
+	public static function get_total_sessions_count() {
+		global $wpdb;
+
+		// Get total count of sessions.
+		$count = $wpdb->get_var( "SELECT COUNT(*) FROM `{$wpdb->prefix}linkanalyzer_sessions`" );
+
+		return (int) $count;
+	}
+
+	/**
+	 * Clear all analytics data.
+	 *
+	 * @return bool|\WP_Error True on success, WP_Error on failure.
+	 */
+	public static function clear_all_data() {
+		global $wpdb;
+
+		// Start a transaction.
+		$wpdb->query( 'START TRANSACTION' );
+
+		try {
+			// Truncate all tables - using DELETE instead of TRUNCATE for better compatibility.
+			// We delete session_links first due to foreign key constraints.
+			$wpdb->query( "DELETE FROM `{$wpdb->prefix}linkanalyzer_session_links`" );
+			$wpdb->query( "DELETE FROM `{$wpdb->prefix}linkanalyzer_links`" );
+			$wpdb->query( "DELETE FROM `{$wpdb->prefix}linkanalyzer_sessions`" );
+
+			// Reset auto-increment values.
+			$wpdb->query( "ALTER TABLE `{$wpdb->prefix}linkanalyzer_sessions` AUTO_INCREMENT = 1" );
+			$wpdb->query( "ALTER TABLE `{$wpdb->prefix}linkanalyzer_links` AUTO_INCREMENT = 1" );
+			$wpdb->query( "ALTER TABLE `{$wpdb->prefix}linkanalyzer_session_links` AUTO_INCREMENT = 1" );
+
+			// Commit the transaction.
+			$wpdb->query( 'COMMIT' );
+
+			return true;
+		} catch ( \Exception $e ) {
+			// Rollback on error.
+			$wpdb->query( 'ROLLBACK' );
+
+			return new \WP_Error(
+				'db_clear_error',
+				'Failed to clear analytics data: ' . $e->getMessage(),
+				array( 'status' => 500 )
+			);
+		}
+	}
 }
