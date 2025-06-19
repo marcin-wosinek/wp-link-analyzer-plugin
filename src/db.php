@@ -5,6 +5,33 @@ namespace LINK_ANALYZER;
 class DB_Handler {
 
 	/**
+	 * Remove sessions older than a specified number of days
+	 *
+	 * @param int $older_than_days Number of days to keep sessions for (default: 7).
+	 * @return int|false Number of rows affected or false on error.
+	 */
+	public static function remove_old_sessions( $older_than_days = 7 ) {
+		global $wpdb;
+
+		// Get table names.
+		$tables = Link_Analyzer_Plugin_Class::get_table_names();
+
+		// Calculate the cutoff date.
+		$cutoff_date = gmdate( 'Y-m-d H:i:s', strtotime( "-{$older_than_days} days" ) );
+
+		// Delete sessions older than the cutoff date.
+		// Note: We don't need to delete from session_links table because of the ON DELETE CASCADE constraint.
+		$result = $wpdb->query(
+			$wpdb->prepare(
+				"DELETE FROM `{$wpdb->prefix}sessions` WHERE created_at < %s",
+				$cutoff_date
+			)
+		);
+
+		return $result;
+	}
+
+	/**
 	 * Get screen height statistics
 	 *
 	 * @return array Array of screen height data with count of sessions.
