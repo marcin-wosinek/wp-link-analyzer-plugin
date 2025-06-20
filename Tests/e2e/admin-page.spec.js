@@ -41,42 +41,42 @@ test.describe("Link Analyzer Admin Page", () => {
 		// First, visit the homepage to create a session
 		// Create a new page in the same context for the frontend visit
 		const frontendPage = await context.newPage();
-		
+
 		// Visit the homepage
 		await frontendPage.goto("/");
-		
+
 		// Wait a moment for the session to be registered
 		await frontendPage.waitForTimeout(1000);
-		
+
 		// Close the frontend page
 		await frontendPage.close();
-		
+
 		// Now go to the admin page to check if the session was registered
 		await page.goto("/wp-admin/admin.php?page=link-analyzer-plugin");
-		
+
 		// Find the section with sessions by its header
-		const sessionsHeader = page.getByRole('heading', { name: 'Screen height statistics' });
-		await sessionsHeader.waitFor({ state: 'visible' });
-		
+		const sessionsHeader = page.getByRole("heading", { name: "Screen height statistics" });
+		await sessionsHeader.waitFor({ state: "visible" });
+
 		// Find the sessions table that follows this header
-		const sessionsTable = sessionsHeader.locator('xpath=./following::table').first();
-		await sessionsTable.waitFor({ state: 'visible' });
-		
+		const sessionsTable = sessionsHeader.locator("xpath=./following::table").first();
+		await sessionsTable.waitFor({ state: "visible" });
+
 		// Check if there is exactly one session registered
-		const sessionRows = sessionsTable.locator('tbody tr');
+		const sessionRows = sessionsTable.locator("tbody tr");
 		const count = await sessionRows.count();
-		
+
 		// Verify we have exactly one session
 		expect(count).toBe(1);
-		
+
 		// Additional verification that the session data is present
 		// Verify the table headers are as expected
-		const tableHeaders = sessionsTable.locator('thead th');
-		await expect(tableHeaders.nth(0)).toContainText('Screen height');
-		await expect(tableHeaders.nth(1)).toContainText('Number of sessions');
-		
+		const tableHeaders = sessionsTable.locator("thead th");
+		await expect(tableHeaders.nth(0)).toContainText("Screen height");
+		await expect(tableHeaders.nth(1)).toContainText("Number of sessions");
+
 		// Verify the session row has data in all cells
-		const sessionCells = sessionRows.first().locator('td');
+		const sessionCells = sessionRows.first().locator("td");
 		await expect(sessionCells).toHaveCount(2);
 	});
 });

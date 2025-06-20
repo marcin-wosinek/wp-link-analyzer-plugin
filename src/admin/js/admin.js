@@ -10,12 +10,8 @@
 (function () {
 	"use strict";
 	document.addEventListener("DOMContentLoaded", function () {
-		const removeOldSessionsButton = document.getElementById(
-			"link-analyzer-remove-old-sessions",
-		);
-		const statusMessage = document.getElementById(
-			"link-analyzer-remove-old-sessions-status",
-		);
+		const removeOldSessionsButton = document.getElementById("link-analyzer-remove-old-sessions");
+		const statusMessage = document.getElementById("link-analyzer-remove-old-sessions-status");
 
 		if (!removeOldSessionsButton) {
 			return;

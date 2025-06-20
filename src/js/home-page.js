@@ -14,9 +14,7 @@ window.addEventListener("load", function (event) {
 		screenHeight = window.innerHeight;
 
 	// all links that are not WP admin bar
-	const allLinks = document.querySelectorAll(
-		"body > div:not(#wpadminbar) a[href]",
-	);
+	const allLinks = document.querySelectorAll("body > div:not(#wpadminbar) a[href]");
 
 	const aboveFoldLinks = Array.from(allLinks).filter((element) => {
 		const { y } = element.getBoundingClientRect();
