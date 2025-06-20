@@ -1,16 +1,47 @@
 /**
- * Plugin activation script for Playwright tests
+ * E2E test helpers for WordPress
  *
- * This script activates the Link Analyzer plugin through the WordPress web interface
+ * This file contains helper functions for common WordPress testing tasks
  */
-const { chromium } = require("@playwright/test");
 
 // WordPress admin credentials
 const WP_USERNAME = "admin";
 const WP_PASSWORD = "password"; // Change this to match your WordPress setup
 
 /**
- * Activates the Link Analyzer plugin through the WordPress web interface
+ * Login to WordPress admin
+ *
+ * @param {import('@playwright/test').Page} page - Playwright page object
+ * @returns {Promise<void>}
+ */
+async function loginAsAdmin(page) {
+	// Navigate to login page
+	await page.goto("/wp-login.php");
+
+	// Fill in credentials
+	await page.fill("#user_login", WP_USERNAME);
+	await page.fill("#user_pass", WP_PASSWORD);
+
+	// Submit the form
+	await page.click("#wp-submit");
+
+	// Wait for successful login - admin bar should be visible
+	await page.locator("#wpadminbar").waitFor({ state: "visible", timeout: 5000 });
+
+	// Additional check - verify we're on the dashboard or admin page
+	const currentUrl = page.url();
+	if (!currentUrl.includes("/wp-admin")) {
+		throw new Error(`Login failed. Current URL: ${currentUrl}`);
+	}
+
+	console.log("Successfully logged in as admin");
+}
+
+/**
+ * Activate the Link Analyzer plugin through the WordPress web interface
+ *
+ * @param {import('@playwright/test').Browser} browser - Playwright browser object
+ * @returns {Promise<void>}
  */
 async function activatePlugin(browser) {
 	console.log("Ensuring Link Analyzer plugin is activated via web interface...");
@@ -20,10 +51,7 @@ async function activatePlugin(browser) {
 		const page = await context.newPage();
 
 		// Login to WordPress admin
-		await page.goto("/wp-login.php");
-		await page.fill("#user_login", WP_USERNAME);
-		await page.fill("#user_pass", WP_PASSWORD);
-		await page.click("#wp-submit");
+		await loginAsAdmin(page);
 
 		// Navigate to plugins page
 		await page.goto("/wp-admin/plugins.php");
@@ -51,19 +79,9 @@ async function activatePlugin(browser) {
 	}
 }
 
-// Run the activation if this script is executed directly
-if (require.main === module) {
-	(async () => {
-		try {
-			const browser = await chromium.launch();
-			await activatePlugin(browser);
-			await browser.close();
-			console.log("Plugin activation completed successfully");
-		} catch (error) {
-			console.error("Plugin activation failed:", error);
-			process.exit(1);
-		}
-	})();
-}
-
-module.exports = { activatePlugin };
+module.exports = {
+	loginAsAdmin,
+	activatePlugin,
+	WP_USERNAME,
+	WP_PASSWORD,
+};

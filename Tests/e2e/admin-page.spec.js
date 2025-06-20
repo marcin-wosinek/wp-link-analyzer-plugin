@@ -1,9 +1,5 @@
 const { test, expect } = require("@playwright/test");
-const { activatePlugin } = require("./activate-plugin");
-
-// WordPress admin credentials
-const WP_USERNAME = "admin";
-const WP_PASSWORD = "password"; // Change this to match your WordPress setup
+const { activatePlugin, loginAsAdmin } = require("./helpers");
 
 test.describe("Link Analyzer Admin Page", () => {
 	test.beforeAll(async ({ browser }) => {
@@ -11,14 +7,8 @@ test.describe("Link Analyzer Admin Page", () => {
 	});
 
 	test.beforeEach(async ({ page }) => {
-		// Login to WordPress admin
-		await page.goto("/wp-login.php");
-		await page.fill("#user_login", WP_USERNAME);
-		await page.fill("#user_pass", WP_PASSWORD);
-		await page.click("#wp-submit");
-
-		// Verify we're logged in
-		await expect(page.locator("#wpadminbar")).toBeVisible();
+		// Login to WordPress admin using the helper function
+		await loginAsAdmin(page);
 	});
 
 	test("should display Link Analyzer admin page", async ({ page }) => {
