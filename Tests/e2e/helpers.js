@@ -63,10 +63,31 @@ async function activatePlugin(browser) {
 		// Check if the plugin is not active and activate it if needed
 		const isActive = await pluginRow.locator(".active").isVisible();
 		if (!isActive) {
+			// Store the activate link for later verification
+			const activateLink = pluginRow.locator('a:text-is("Activate")');
+			await activateLink.waitFor({ state: "visible" });
+			
 			// Click the activate link
-			await pluginRow.locator('a:text-is("Activate")').click();
-			// Wait for activation to complete
+			await activateLink.click();
+			
+			// Wait for page to reload after activation
 			await page.waitForURL("**/plugins.php**");
+			await page.waitForLoadState("networkidle");
+			
+			// Locate the plugin row again after page reload
+			const updatedPluginRow = page.locator('tr[data-slug="link-analyzer"]');
+			await updatedPluginRow.waitFor({ state: "visible" });
+			
+			// Verify the plugin is now active
+			const deactivateLink = updatedPluginRow.locator('a:text-is("Deactivate")');
+			await deactivateLink.waitFor({ state: "visible", timeout: 5000 });
+			
+			// Additional verification - check for the active class
+			const hasActiveClass = await updatedPluginRow.locator(".active").isVisible();
+			if (!hasActiveClass) {
+				throw new Error("Plugin activation failed: Active class not found after activation");
+			}
+			
 			console.log("Link Analyzer plugin activated successfully via web interface");
 		} else {
 			console.log("Link Analyzer plugin is already active");
