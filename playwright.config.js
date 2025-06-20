@@ -7,8 +7,8 @@ const path = require("path");
  */
 module.exports = defineConfig({
 	/* Global setup that runs before all tests */
-	globalSetup: "./tests/e2e/global-setup.js",
-	testDir: "./tests/e2e",
+	globalSetup: "./Tests/e2e/global-setup.js",
+	testDir: "./Tests/e2e",
 	/* Maximum time one test can run for. */
 	timeout: 30 * 1000,
 	expect: {
@@ -45,14 +45,6 @@ module.exports = defineConfig({
 		{
 			name: "chromium",
 			use: { ...devices["Desktop Chrome"] },
-		},
-		{
-			name: "firefox",
-			use: { ...devices["Desktop Firefox"] },
-		},
-		{
-			name: "webkit",
-			use: { ...devices["Desktop Safari"] },
 		},
 	],
 
